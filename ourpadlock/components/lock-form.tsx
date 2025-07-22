@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { X } from "lucide-react"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { X } from "lucide-react";
 
 interface LockFormProps {
-  onSubmit: (initials: string, message: string, color: string) => void
-  onCancel: () => void
+  onSubmit: (initials: string, message: string, color: string) => void;
+  onCancel: () => void;
 }
 
 const LOCK_COLORS = [
@@ -23,29 +23,29 @@ const LOCK_COLORS = [
   "#9b59b6", // Purple
   "#e67e22", // Orange
   "#1abc9c", // Teal
-]
+];
 
 export default function LockForm({ onSubmit, onCancel }: LockFormProps) {
-  const [initials, setInitials] = useState("")
-  const [message, setMessage] = useState("")
-  const [selectedColor, setSelectedColor] = useState(LOCK_COLORS[0])
+  const [initials, setInitials] = useState("");
+  const [message, setMessage] = useState("");
+  const [selectedColor, setSelectedColor] = useState(LOCK_COLORS[0]);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // Format initials with heart
-    let formattedInitials = initials
+    let formattedInitials = initials;
     if (!initials.includes("❤️")) {
-      const parts = initials.split(/\s+/)
+      const parts = initials.split(/\s+/);
       if (parts.length >= 2) {
-        formattedInitials = `${parts[0]} ❤️ ${parts[1]}`
+        formattedInitials = `${parts[0]} ❤️ ${parts[1]}`;
       } else {
-        formattedInitials = `${initials} ❤️`
+        formattedInitials = `${initials} ❤️`;
       }
     }
 
-    onSubmit(formattedInitials, message, selectedColor)
-  }
+    onSubmit(formattedInitials, message, selectedColor);
+  };
 
   return (
     <motion.div
@@ -53,7 +53,10 @@ export default function LockForm({ onSubmit, onCancel }: LockFormProps) {
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
     >
-      <button onClick={onCancel} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+      <button
+        onClick={onCancel}
+        className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+      >
         <X size={20} />
       </button>
 
@@ -61,7 +64,9 @@ export default function LockForm({ onSubmit, onCancel }: LockFormProps) {
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <Label htmlFor="initials">Initials (e.g. "J ❤️ M" or "John Mary")</Label>
+          <Label htmlFor="initials">
+            Initials (e.g. &ldquo;J ❤️ M&ldquo; or &ldquo;John Mary&ldquo;)
+          </Label>
           <Input
             id="initials"
             value={initials}
@@ -92,7 +97,9 @@ export default function LockForm({ onSubmit, onCancel }: LockFormProps) {
                 key={color}
                 type="button"
                 className={`w-8 h-8 rounded-full transition-all ${
-                  selectedColor === color ? "ring-2 ring-offset-2 ring-gray-400" : ""
+                  selectedColor === color
+                    ? "ring-2 ring-offset-2 ring-gray-400"
+                    : ""
                 }`}
                 style={{ backgroundColor: color }}
                 onClick={() => setSelectedColor(color)}
@@ -102,7 +109,12 @@ export default function LockForm({ onSubmit, onCancel }: LockFormProps) {
         </div>
 
         <div className="flex gap-4">
-          <Button type="button" variant="outline" onClick={onCancel} className="flex-1 bg-transparent">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onCancel}
+            className="flex-1 bg-transparent"
+          >
             Cancel
           </Button>
           <Button type="submit" className="flex-1">
@@ -111,5 +123,5 @@ export default function LockForm({ onSubmit, onCancel }: LockFormProps) {
         </div>
       </form>
     </motion.div>
-  )
+  );
 }
